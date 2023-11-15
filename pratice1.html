@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div style="margin: auto">
+      <video autoplay></video>
+      <button>start</button>
+    </div>
+  </body>
+</html>
+
+<script>
+  let video = document.querySelector("video");
+  let btn = document.querySelector("button");
+  btn.onclick = capture;
+  // btn.onclick = getMediaSources;
+
+  function getMediaSources() {
+    let videoSource = null;
+    let audioSource = null;
+    // MediaStreamTrack.getSources(function (infos) {
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then((devices) => {
+        console.log("info", devices);
+        devices.forEach((elem) => {
+          let info = elem;
+          if (info.kind === "audio") {
+            audioSource = info.deviceId;
+          } else if (info.kind === "video") {
+            videoSource = info.deviceId;
+          } else {
+            console.log("error", info);
+          }
+        });
+        capture(audioSource, videoSource);
+      })
+      .catch((err) => console.log("error", err));
+  }
+
+  function capture(audioSource, videoSource) {
+    // const constraints = {
+    //   video: {
+    //     optional: [{ sourceId: videoSource }],
+    //   },
+    //   audio: {
+    //     optional: [{ sourceId: audioSource }],
+    //   },
+    // };
+    navigator.mediaDevices
+      .getUserMedia(
+        {
+          video: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+          },
+          audio: true,
+        }
+        // constraints
+      )
+      .then(successFunc)
+      .catch(errorFunc);
+  }
+
+  function successFunc(mediaStream) {
+    console.log("mediaStream", mediaStream);
+    const videoTracks = mediaStream.getVideoTracks();
+    console.log(`using video device ${videoTracks[0].label}`);
+    video.srcObject = mediaStream;
+    // video.src = window.URL.createObjectURL(mediaStream)
+  }
+
+  function errorFunc(error) {
+    console.log("error", error);
+  }
+</script>
