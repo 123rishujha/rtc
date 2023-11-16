@@ -1,0 +1,8 @@
+video {
+  vertical-align: top;
+  --width: 25vw;
+  width: var(--width);
+  /* height: 300px; */
+  height: calc(var(--width) * 0.5625);
+  border: 1px solid red;
+}

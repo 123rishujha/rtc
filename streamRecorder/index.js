@@ -20,6 +20,30 @@ recordButton.addEventListener("click", () => {
   }
 });
 
+playButton.addEventListener("click", () => {
+  const mimeType = codecPreferences.options[
+    codecPreferences.selectedIndex
+  ].value.split(";", 1)[0];
+  const blob = new Blob(recordedBlobs, { type: mimeType });
+  recordedVideo.src = null;
+  recordedVideo.srcObject = null;
+  recordedVideo.src = URL.createObjectURL(blob);
+  recordedVideo.controls = true;
+  recordedVideo.play();
+});
+
+downloadButton.addEventListener("click", () => {
+  const blog = new Blob(recordedBlobs, { type: "video/mp4" });
+  const url = window.URL.createObjectURL(blog);
+  const anchor = document.createElement("a");
+  anchor.download = "recorded_video";
+  anchor.href = url;
+  anchor.click();
+  setTimeout(() => {
+    window.URL.revokeObjectURL(url);
+  }, 1000);
+});
+
 //start recording
 function startRecording() {
   recordedBlobs = [];
