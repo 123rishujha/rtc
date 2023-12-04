@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 80%;
+            padding: 10px;
+            margin: 50px auto;
+        }
+
+        button {
+            margin: 0 20px 20px 0;
+            vertical-align: top;
+            width: 155px;
+        }
+
+        div#buttons {
+            border-bottom: 1px solid #eee;
+            margin: 1em 0 1em 0;
+            padding: 0 0 1em 0;
+        }
+
+        div#local {
+            margin: 0 20px 0 0;
+        }
+
+        div#preview {
+            border-bottom: 1px solid #eee;
+            margin: 0 0 1em 0;
+            padding: 0 0 0.5em 0;
+        }
+
+        div#preview>div {
+            display: inline-block;
+            vertical-align: top;
+            width: calc(50% - 12px);
+        }
+
+        div#select {
+            margin: 0 0 1em 0;
+        }
+
+        div#selectSource {
+            margin: 0 0 1em 0;
+        }
+
+        div.source {
+            display: inline-block;
+            margin: 0 0 1em 0;
+        }
+
+        form {
+            margin: 0 0 1em 0;
+            white-space: nowrap;
+        }
+
+        h2 {
+            margin: 0 0 0.5em 0;
+        }
+
+        label {
+            margin: 0 0.4em 0 0;
+        }
+
+        textarea {
+            color: #444;
+            font-size: 0.9em;
+            font-weight: 300;
+            /* height: 7.0em; */
+            height: 300px;
+            padding: 5px;
+            width: calc(100% - 10px);
+        }
+
+        video {
+            height: 225px;
+        }
+
+        @media screen and (max-width: 550px) {
+            button {
+                font-weight: 500;
+                height: 56px;
+                line-height: 1.3em;
+                margin: 0 7px 15px 0;
+                width: 86px;
+            }
+
+            button:nth-child(3n+0) {
+                margin: 0 0 15px 0;
+            }
+
+            video {
+                height: 96px;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            button {
+                margin: 0 15px 15px 0;
+                width: 155px;
+            }
+
+            div#selectSource {
+                margin: 0 0 0.5em 0;
+            }
+
+            div.source {
+                margin: 0 0 .2em 0;
+            }
+
+            select {
+                margin: 0 1.5em 0 0;
+            }
+
+            textarea {
+                font-size: 0.7em;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            textarea {
+                font-size: 0.5em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="selectSource">
+        <div class="source">
+            <label id="audioSrc">Audio Source:</label>
+            <select id="audioSrc"></select>
+        </div>
+        <div class="source">
+            <label id="videoSrc">Video Source:</label>
+            <select id="videoSrc"></select>
+        </div>
+    </div>
+
+    <div id="buttons">
+        <button id="getMedia">Get media</button>
+        <button disabled id="createPeerConnection">Create Peer Connnection</button>
+        <button disabled id="createOffer">Create Offer</button>
+        <button disabled id="setOffer">Set Offer</button>
+        <button disabled id="createAnswer">Create Answer</button>
+        <button disabled id="setAnswer">Set Answer</button>
+        <button disabled id="hangup">Hang Up</button>
+    </div>
+
+    <div id="preview">
+        <div id="local">
+            <h2>Local</h2>
+            <video autoplay playsinline muted></video>
+            <h2>Offer SDP</h2>
+            <textarea></textarea>
+            <br>
+            <br>
+        </div>
+        <div id="remote">
+            <h2>Remote</h2>
+            <video autoplay playsinline></video>
+            <h2>Answer SDP</h2>
+            <textarea></textarea>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<script src="./index.js"></script>
